@@ -3,6 +3,7 @@ import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { postCreateNewUser } from "../../../services/apiService";
 
 const ModalCreateUser = ({ isOpenModal, setIsOpenModal }) => {
   // const modalRef = useRef(null);
@@ -62,27 +63,20 @@ const ModalCreateUser = ({ isOpenModal, setIsOpenModal }) => {
       toast.error("Invalid Password");
       return;
     }
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
-    data.append("username", username);
-    data.append("role", role);
-    data.append("userImage", image);
-    let res = await axios.post("http://localhost:8081/api/v1/participant", data);
-    console.log(res);
-    if(res.data && res.data.EC === 0) {
-      toast.success(res.data.EM)
+    let data = await postCreateNewUser(email, password, username, role, image);
+    if(data && data.EC === 0) {
+      toast.success(data.EM)
       handleClose();
     }
-    if(res.data && res.data.EC) {
-      toast.error(`${email} is already exist`);
+    if(data && data.EC) {
+      toast.error(data.EM);
     }
   }
 
   return (
     isOpenModal && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 shadow-md">
-        <div className="w-full max-w-5xl max-h-full rounded-lg shadow bg-white">
+        <div className="overflow-scroll w-full max-w-5xl max-h-full rounded-lg shadow bg-white">
           <div className="flex p-5 border-b">
             <p className="text-lg text-gray-900 font-semibold">Add New User</p>
             <IoIosClose
