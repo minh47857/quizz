@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ModalCreateUser from "./ModalCreateUser";
-
+import TableUser from "./TableUser";
 
 const ManageUser = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -16,6 +16,7 @@ const ManageUser = () => {
           <button className="px-5 py-2.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-medium" onClick={() => setIsOpenModal(true)}> Add new Users </button>
           <ModalCreateUser isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}/>
         </div>
+        <TableUser/>
       </div>
     </div>
   );

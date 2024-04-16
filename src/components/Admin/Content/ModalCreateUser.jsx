@@ -1,7 +1,6 @@
 // import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { postCreateNewUser } from "../../../services/apiService";
 
@@ -76,7 +75,7 @@ const ModalCreateUser = ({ isOpenModal, setIsOpenModal }) => {
   return (
     isOpenModal && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50 shadow-md">
-        <div className="overflow-scroll w-full max-w-5xl max-h-full rounded-lg shadow bg-white">
+        <div className="overflow-auto w-full max-w-5xl max-h-full rounded-lg shadow bg-white">
           <div className="flex p-5 border-b">
             <p className="text-lg text-gray-900 font-semibold">Add New User</p>
             <IoIosClose
