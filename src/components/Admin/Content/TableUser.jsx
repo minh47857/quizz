@@ -1,9 +1,21 @@
-
+import { useState } from 'react';
+import ReactPaginate from 'react-paginate';
 
 const TableUser = ({ listUsers, openUpdateModal, setUpdatingUser, setIsOpenDeleteModal, setDeletingUser }) => {
+  const [itemOffset, setItemOffset] = useState(0);
+  const usersPerPage = 6;
+  const endOffset = itemOffset + usersPerPage;
+  const currentListUsers = listUsers.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(listUsers.length / usersPerPage);
+
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * usersPerPage) % listUsers.length;
+    setItemOffset(newOffset);
+  }
+
   const handleUpdate = (user) => {
     openUpdateModal();
-    setUpdatingUser(user);
+    setUpdatingUser(user);  
   }
 
   const handleDelete = (user) => {
@@ -34,8 +46,8 @@ const TableUser = ({ listUsers, openUpdateModal, setUpdatingUser, setIsOpenDelet
           </tr>
         </thead>
         <tbody>
-          {listUsers && listUsers.length > 0 &&
-            listUsers.map((item, index) => {
+          {currentListUsers && currentListUsers.length > 0 &&
+            currentListUsers.map((item, index) => {
               return (
                 <tr key={`table-users-${index}`} className="bg-white border-b hover:bg-gray-50">
                   <th scope="row" className=" px-6 py-4 font-medium">
@@ -51,7 +63,6 @@ const TableUser = ({ listUsers, openUpdateModal, setUpdatingUser, setIsOpenDelet
                     {item.role}
                   </td>
                   <td className="px-6 py- border">
-                    <button className="text-white px-5 py-2.5 rounded-lg bg-sky-300"> View </button>
                     <button className="ml-2 text-white px-5 py-2.5 rounded-lg bg-yellow-300" onClick={() => handleUpdate(item)}> Update </button>
                     <button className="ml-2 text-white px-5 py-2.5 rounded-lg bg-red-400" onClick={() => handleDelete(item)}> Delete </button>
                   </td>
@@ -62,6 +73,16 @@ const TableUser = ({ listUsers, openUpdateModal, setUpdatingUser, setIsOpenDelet
 
         </tbody>
       </table>
+      <ReactPaginate  
+        breakLabel="..."
+        nextLabel="next >"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={5}
+        pageCount={pageCount}
+        previousLabel="< previous"
+        renderOnZeroPageCount={null}  
+        className="flex space-x-4 items-center justify-center mt-4"
+      />
     </div>
   );
 }
