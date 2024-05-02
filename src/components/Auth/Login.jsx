@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner6 } from "react-icons/im";
 
 const Login = () => {
-  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -18,23 +23,25 @@ const Login = () => {
 
   const handleOnClick = async () => {
     const isValidEmail = validateEmail(email);
-    // console.log(isValidEmail)
     if (!isValidEmail) {
-      console.error("Invalid Email");
+      toast.error("Invalid Email");
       return;
     }
     if (!password) {
-      console.error("Invalid Password");
+      toast.error("Invalid Password");
       return;
     }
+    setIsLoading(true);
     let res = await LoginUser(email, password);
-    console.log(res);
     if (res && res.EC === 0) {
+      dispatch(doLogin(res.DT))
       toast.success(res.EM)
+      setIsLoading(false);
       navigate("/");
     }
     if (res && res.EC) {
       toast.error(res.EM);
+      setIsLoading(false);
     }
   }
 
@@ -66,7 +73,7 @@ const Login = () => {
               </div>
               <a href="#" className="text-sm font-medium text-blue-600 hover:underline">Forgot password?</a>
             </div>
-            <button className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={handleOnClick}>Sign in</button>
+            <button className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed" disabled={isLoading} onClick={handleOnClick}> {isLoading && <ImSpinner6 className="h-5 w-5 inline mr-2 animate-spin"/>} <span>Sign in</span></button>
             <p className="text-sm font-light text-gray-500">
               Don’t have an account yet? <button className="font-medium text-blue-600 hover:underline" onClick={() => navigate("/register")}>Sign up</button>
             </p>

@@ -20,15 +20,14 @@ const Register = () => {
     const isValidEmail = validateEmail(email);
     // console.log(isValidEmail)
     if(!isValidEmail) {
-      console.error("Invalid Email");
+      toast.error("Invalid Email");
       return;
     }
     if(!password) {
-      console.error("Invalid Password");
+      toast.error("Invalid Password");
       return;
     }
     let res = await RegisterUser(email, password, username);
-    console.log(res);
     if(res && res.EC === 0) {
       toast.success(res.EM)
       navigate("/");

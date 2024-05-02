@@ -27,8 +27,8 @@ const deleteUser = (userId) => {
   return axios.delete("/api/v1/participant", {data: {id: userId}});
 }
 
-const LoginUser = (email, password) => {
-  return axios.post("api/v1/login", { email, password });
+const LoginUser = (email, password, delay = 3000) => {
+  return axios.post("api/v1/login", { email, password, delay });
 }
 
 const RegisterUser = (email, password, username) => {
