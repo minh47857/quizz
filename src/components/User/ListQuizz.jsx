@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { getQuizzByParticipant } from "../../services/apiService";
+import { useNavigate } from "react-router-dom";
 
 const ListQuizz = () => {
-  const [arrQuizz, setArrQuizz] = useState([]);
+  const [arrQuizz, setArrQuizz] = useState([]); 
+  const navigate = useNavigate();
 
   const getArrQuizz = async () => {
     const res = await getQuizzByParticipant();
@@ -27,7 +29,12 @@ const ListQuizz = () => {
                 <div className="p-5">
                   <p className="font-bold text-xl"> Quizz {quizz.id} </p>
                   <p className="my-2"> {quizz.description} </p>
-                  <button className="px-3 py-2 border bg-blue-700 rounded-lg text-white font-medium hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"> Start Now </button>
+                  <button 
+                    className="px-3 py-2 border bg-blue-700 rounded-lg text-white font-medium hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    onClick={() => {navigate(`/quiz/${quizz.id}`)}}
+                  > 
+                    Start Now 
+                  </button>
                 </div>
               </div>
             )

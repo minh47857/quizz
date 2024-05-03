@@ -12,6 +12,15 @@ import Register from './components/Auth/Register.jsx'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ListQuizz from './components/User/ListQuizz.jsx'
+import DetailQuizz from './components/User/DetailQuizz.jsx'
+
+const NotFound = () => {
+  return (
+    <div className="w-full h-screen flex items-center justify-center text-red-400 font-bold text-7xl">
+      404 Not Found
+    </div>
+  )
+}
 
 const Layout = () => {
   return (  
@@ -21,12 +30,14 @@ const Layout = () => {
           <Route index element={<HomePage/>}/>
           <Route path="/users" element={<ListQuizz/>}/>
         </Route>
+        <Route path="/quiz/:id" element={<DetailQuizz/>}/>
         <Route path="/admin" element={<Admin/>}>
           <Route index element={<DashBoard/>}/>
           <Route path="manage-users" element={<ManageUser/>}/>
         </Route>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
       <ToastContainer
       position="top-right"
