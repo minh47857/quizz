@@ -16,7 +16,7 @@ const putUpdateUser = (id, username, role, image) => {
   data.append("username", username);
   data.append("role", role);
   data.append("userImage", image);
-  return axios.put("api/v1/participant", data);s
+  return axios.put("api/v1/participant", data);
 }
 
 const getAllUser = () => {
@@ -35,4 +35,8 @@ const RegisterUser = (email, password, username) => {
   return axios.post("api/v1/register", {email, password, username});
 }
 
-export  { postCreateNewUser, getAllUser, putUpdateUser, deleteUser, LoginUser, RegisterUser };
+const getQuizzByParticipant = () => {
+  return axios.get("api/v1/quiz-by-participant");
+}
+
+export  { postCreateNewUser, getAllUser, putUpdateUser, deleteUser, LoginUser, RegisterUser, getQuizzByParticipant };

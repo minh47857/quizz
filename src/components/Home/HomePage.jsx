@@ -1,12 +1,14 @@
 import videoHomepage from '../../assets/video-homepage.mp4'
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 
 const HomePage = () => {
   const account = useSelector(state => state.user.account);
   const isAuthenticated = useSelector(state => state.user.isAuthenticated);
-  console.log(account, isAuthenticated);
-  
-  return ( 
+  const navigate = useNavigate();
+
+  return (
     <>
       <video className="fixed bottom-0 w-full" autoPlay loop muted>
         <source
@@ -21,13 +23,18 @@ const HomePage = () => {
           Create a typeform insted- and make everyone happy.
         </div>
         <div className="">
-          <button className=" text-white font-bold px-6 py-3 mb-4 rounded-md bg-black hover:opacity-80">Get's started. It's free</button>
+          {isAuthenticated 
+            ?
+              <button className=" text-white font-bold px-6 py-3 mb-4 rounded-md bg-black hover:opacity-80" onClick={() => navigate("/users")}>Doing Quizz Now</button>
+            : 
+              <button className=" text-white font-bold px-6 py-3 mb-4 rounded-md bg-black hover:opacity-80" onClick={() => navigate("/login")}>Get's started. It's free</button>
+          }
           <div className="font-thin text-sm">No credit card required</div>
           <div className="font-thin text-sm">No time limit on Free plan</div>
         </div>
       </div>
-    </> 
+    </>
   );
 }
- 
+
 export default HomePage;
