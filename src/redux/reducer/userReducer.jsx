@@ -13,7 +13,6 @@ const INITIAL_STATE = {
 }
 
 const userReducer = (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch(action.type) {
     case FETCH_USER_LOGIN_SUCCESS: 
       return {

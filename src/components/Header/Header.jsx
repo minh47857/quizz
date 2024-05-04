@@ -22,6 +22,7 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(doLogout());
+    navigate("/");
   }
 
   const handleOnClickSetting = () => {
