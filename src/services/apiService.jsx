@@ -39,4 +39,11 @@ const getQuizzByParticipant = () => {
   return axios.get("api/v1/quiz-by-participant");
 }
 
-export  { postCreateNewUser, getAllUser, putUpdateUser, deleteUser, LoginUser, RegisterUser, getQuizzByParticipant };
+const getQuestionByQuizId = (id) => {
+  return axios.get(`api/v1/questions-by-quiz?quizId=${id}`);
+}
+
+export  {
+  postCreateNewUser, getAllUser, putUpdateUser, deleteUser, 
+  LoginUser, RegisterUser, getQuizzByParticipant, getQuestionByQuizId 
+};
