@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { doLogout } from "../../redux/action/userAction";
+import { CiLogout } from "react-icons/ci";
+
 const Header = () => {
   const [isOpenSetting, setIsOpenSetting] = useState(false);
   console.log(isOpenSetting);
@@ -55,7 +57,7 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="p-4 hover:bg-gray-50 cursor-pointer" onClick={handleLogout}>
-                    Logout
+                    <CiLogout className="inline mr-2" /> Log out
                   </div>
                 </div>
                 }

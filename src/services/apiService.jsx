@@ -43,7 +43,25 @@ const getQuestionByQuizId = (id) => {
   return axios.get(`api/v1/questions-by-quiz?quizId=${id}`);
 }
 
+const submitAnswer = (payload) => {
+  return axios.post("api/v1/quiz-submit", payload);
+}
+
+const postCreateNewQuiz = (name, description, difficulty, quizImage) => {
+  const data = new FormData();
+  data.append("name", name);
+  data.append("description", description);
+  data.append("difficulty", difficulty);
+  data.append("quizImage", quizImage);
+  return axios.post("api/v1/quiz", data);
+}
+
+const getAdminQuizzes = () => {
+  return axios.get("api/v1/quiz/all");
+}
+
 export  {
   postCreateNewUser, getAllUser, putUpdateUser, deleteUser, 
-  LoginUser, RegisterUser, getQuizzByParticipant, getQuestionByQuizId 
+  LoginUser, RegisterUser, getQuizzByParticipant, getQuestionByQuizId ,
+  submitAnswer, postCreateNewQuiz, getAdminQuizzes
 };
