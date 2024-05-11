@@ -1,9 +1,9 @@
 const User = () => {
-  return (  
-    <>
-      UserPage
-    </>
-  );
+	return (	
+		<>
+			UserPage
+		</>
+	);
 }
  
 export default User;
